@@ -1,0 +1,254 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Graph Convolutional Network</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+<style>
+h1 {
+	text-align: center;
+}
+
+h2, h3, h4{
+	padding-top: 10px;
+	margin-left: 15%;
+}
+div.main-container{
+	margin-top: 70px;
+	margin-bottom: 10px;
+	background-color: white;
+}
+
+div.footer{
+	margin-top : 150px;
+}
+
+p {
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+  line-height: 1.4;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+p.points{
+	padding-top : 10px;
+	padding-left : 30px;
+	padding-bottom : 10px;
+}
+
+p.eqns{
+	background-color : white;
+}
+
+ol, ul{
+	 font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+  line-height: 1.4;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.imgcenter{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:0px
+}
+
+pre{
+	margin-left:15%; margin-right:15%; margin-top:35px;margin-bottom:35px;
+	padding-top:10px; padding-bottom:10px; padding-left: 0px;
+	background-color:#f2f2f2; 
+	font-size:15px;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class='main-container'>
+<h1>Graph Convolutional Network</h1>
+<h4>Written by :  <a href="https://www.linkedin.com/in/neetu-murmu-131139177/">Neetu Murmu</a></h4>
+<h2>Introduction to GCN</h2>
+<p>We see many graph-structured data in real-life scenarios such as social media network, fraud detection, and protein-protein interaction data in biological science.
+ But, often times it's a challenging task to solve learning problems on graphs due to their high complexity.</p>
+
+<p>Graph Convolutional Network is a type of neural network that operates on graphs. 
+		GCN involves storing states for each node and using an adjacency matrix to propagate those states to the nodes’ neighbors.
+		States for each node could be their features (given or derived using random walk)
+		Given a graph G = (V,  E), GCN takes following input :
+</p>						
+
+<ol>
+		<li>An input feature matrix N × F⁰ feature matrix, X, where N is the number of nodes and F⁰ is the number of input features, and </li>
+		<li>An N × N matrix representation of the graph structure i.e. adjacency matrix  A.</li>
+</ol>
+
+<p>And produces an <span class="math display">\(F^{(L)}   \)</span>-dimensional output for each node i.e. an <span class="math display">\(N * F^{(L)}   \)</span> output feature matrix, where L is number of layers.</p>
+
+<p>Each GCN layer can be represented as a function of previous GCN layer and adjacency matrix of the graph:</p>
+<p class='eqns'><span class="math display">\[ H^{(l+1)} = f(H^{(l)}, A) \, ,\]</span></p>    
+<p>where <span class="math display">\(H^{(l)}   \)</span> is feature matrix of shape N x <span class="math display">\(F^{(l)}   \)</span> for layer <span class="math display">\(l \)</span>  and <span class="math display">\(F^{(l)}   \)</span>, number of features in layer <span class="math display">\(l \)</span>.  
+<br>We define <span class="math display">\(H^{(0)} = X \)</span>.
+<br>Each row of feature matrix corresponds to feature representation of a node for that layer.
+</p>
+
+
+<h2>Propagation Rule</h2>
+<p>Now that we know what inputs and output of a GCN look like, let's see a simple propagation rule that can be defined as:   </p>
+<p class='eqns'> <span class="math display">\[ f(H^{(l)}, A) = \sigma(A H^{(l)}  W^{(l)}) \, ,\] </span> </p> 
+<p>  where <span class="math display">\(W^{(l)}   \)</span> is a weight matrix for the <span class="math display">\(l   \)</span>-th GCN layer, and \(\sigma \, \) is a non-linear activation function like ReLU and tanh. 
+<br>The weight matrix has dimensions <span class="math display">\(F^{(l)} * F^{(l+1)}   \)</span> ; the 2nd dimension of the weight matrix determines 2nd dimension of <span class="math display">\(H^{(l+1)}   \)</span> i.e.  the number of features at the next layer. </p>
+
+<p style="padding-top:20px;">Now, let's understand what this propagation rule is doing: </p>
+<ul>
+<li> When we multiply <span class="math display">\(A \) with <span class="math display">\(H^{(l)}   \)</span>, nodes' features in layer <span class="math display">\(l  \)</span> are updated as the sum of their respective neighbors' features.
+<img src="images/graph.png" alt="Graph"  class="imgcenter"/> 
+<p >Let's consider the graph above, A is it's adjacency matrix, and let X be a simple feature matrix :</p>
+<pre>
+	In[1] : A = np.array([[0, 1, 0, 0, 0],
+		              [1, 0, 0, 1, 0], 
+		              [0, 0, 0, 1, 0],
+		              [0, 1, 1, 0, 1],
+		              [0, 0, 0, 1, 0]],
+			          dtype=float)
+		
+		X = np.array([[i, 2*i] for i in range(A.shape[0])])
+		print(X)
+		
+	Out[1] : array([[0, 0],
+			[1, 2],
+			[2, 4],
+			[3, 6],
+			[4, 8]])
+</pre>
+<pre>
+	In[2] : Y = np.matmul(A, X)
+		print(Y)
+		
+	Out[2] : array([[ 1.,  2.],
+			[ 3.,  6.],
+			[ 3.,  6.],
+			[ 7., 14.],
+			[ 3.,  6.]])
+</pre>
+<p>e.g. feature for Node 2 is sum of its neighboring nodes i.e. Node 0 and 3, which results in feature representation of Node 2 as [3,   6].</p>
+</li>
+
+<li> And, when we multiply above with weights and apply non-linear activation to it, the feautre representations are transformed.</li>
+</ul>
+<p>Order of matrix muliplication doesn't matter, since it's associative i.e.  [ (AB)C = A(BC) ]</p>
+<p>Let's call the first operation 'aggregation' (since neighbors' features are being summed) and second 'transformation' as described in <a href="https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-62acf5b143d0"> this</a> blog.</p>
+
+<p style="padding-top:20px;">As you may have already noticed, there are few problems with the propagation rule defined above :</p>
+<ol>
+	<li> In aggregation step, a node's <i>own</i> feature is <b>NOT</b> being included. To fix this, we add self-loop to each node.
+		  For this, we could simply do :   <span class="math display">\( \hat{A} =  A + I\)</span>
+	
+	<pre>
+	In[3] : A = A + I
+		A
+	Out[3] : array([[1., 1., 0., 0., 0.],
+			[1., 1., 0., 1., 0.],
+			[0., 0., 1., 1., 0.],
+			[0., 1., 1., 1., 1.],
+			[0., 0., 0., 1., 1.]])
+			
+	In[4] : Y = np.matmul(A, X)
+		Y
+	Out[4] : array([[ 1.,  2.],
+			[ 4.,  8.],
+			[ 5., 10.],
+			[10., 20.],
+			[ 7., 14.]])
+	</pre>
+	<p>Now, for Node 2, it's own features are also added, hence its feature representation becomes [4,  8].</p>
+	</li>
+	
+	<li> Second problem is that, typically A is not normalized, i.e. all rows don't sum up to one, therefore when we calculate feature representation of each node, a node with higher degree will have
+	higher feature value as compared to the node which has lower degree. This can cause vanishing or exploding gradients, 
+	and could also cause problem for gradient descent based algorithms because of scale difference in the features.
+	To fix this problem, we normalize A  as described by [1] such that all rows sum upto one :
+	<br> <span class="math display">\[ \hat{A} =  D^{-1} A\]</span>
+	D is diagonal node degree matrix of  A,  and <span class="math display">\( \hat{A} \)</span> is the normalized A.
+	<pre>
+	In[4] : A_hat = np.round(matmul(matrix_power(D, -1), A), 3)
+		A_hat
+		
+	Out[4] : array([[0.5  , 0.5  , 0.   , 0.   , 0.   ],
+			[0.333, 0.333, 0.   , 0.333, 0.   ],
+			[0.   , 0.   , 0.5  , 0.5  , 0.   ],
+			[0.   , 0.25 , 0.25 , 0.25 , 0.25 ],
+			[0.   , 0.   , 0.   , 0.5  , 0.5  ]])
+	
+	In[5] : Y = np.round(matmul(A_hat, X), 3)
+		Y
+	
+	Out[5] : array([[0.5  , 1.   ],
+			[1.332, 2.664],
+			[2.5  , 5.   ],
+			[2.5  , 5.   ],
+			[3.5  , 7.   ]])
+	</pre>
+	</li>
+</ol>
+
+<br/>
+ <p style="padding-top:15px;">After introducing the changes as described above, new propagation rule looks as follows: 
+ <br>  <span class="math display">\[ f(H^{(l)}, A) = \sigma(D^{-1}AH^{(l)}  W^{(l)}) \, ,\] </span> 
+ </p>
+<p>Now, when we multiply features with normalized A i.e. <span class="math display">\( \hat{A}\) </span>,  we get the feature representation of a node as the
+ mean of features of it's neighboring nodes, as opposed to their direct sum as in the case of un-normalized A.</p>
+
+<p style="padding-top:15px;">So far, we have seen two types of propagation rule :
+<ol>
+	<li><span class="math display">\(f(A H^{(l)}  W^{(l)}) \, \) </span></li>
+	<li><span class="math display">\(f(D^{-1}AH^{(l)}  W^{(l)}) \, \) </span></p></li>
+</ol>
+
+<br/>
+<p>Now, let's discuss spectral propagation rule, which was proposed in the paper <b><i>GCN for semi-supervised Node Classification</i></b> by T. Kipf and Welling [1],
+where propagation rule is defined as:
+<span class="math display">\[f(H^{(l)}, A) = \sigma\left( \hat{D}^{-\frac{1}{2}}\hat{A}\hat{D}^{-\frac{1}{2}}H^{(l)}W^{(l)}\right) \, ,\]</span>
+<p>Here <span class="math display">\( \hat{A} =  A + I\)</span>, where I is the identity matrix and <span class="math display">\( \hat{D} \)</span> is the diagonal node degree matrix of <span class="math display">\( \hat{A} \)</span>.</p>
+
+<p> Difference between this propagation rule and the second propagation rule is in the way they normalize A, and further how it affects the aggregation step.
+<br>  Now, when we compute aggregate feature representation of the i-th node, we not only take into consideration 
+the degree of the ith node, but also the degree of the j-th node. Similar to the second propagation rule, the spectral rule normalizes the aggregate 
+s.t. the aggregate feature representation remains roughly on the same scale as the input features. 
+However, the spectral rule weighs neighbor in the weighted sum higher if they have a low-degree and lower if they have a high-degree.
+ This may be useful when low-degree neighbors provide more useful information than high-degree neighbors. [4]</p>
+
+<p>You can refer to <a href="https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-62acf5b143d0"> this</a> blog 
+for detailed mathematical derivation for how each prapagation rule differs in terms of how they carry out aggregation step.</p>
+
+<h2>Semi-Supervised learning</h2>
+<p>Further in the paper [1], they propose how spectral rule can be used for semi-supervised learning. For semi-supervised learning, we use both label and unlabelled nodes. 
+We can add labels for few examples, and since model is parametrized and hence differentiable, we can backpropagate the error on labeled data.</p>
+
+<h2>Conclusion:</h2>
+<p>In this blog post, we talked about how GCN can be used to learn feature representation of nodes based on their respective neighbors in a graph.
+Different approaches of GCN (propagation rules) differ in terms of how nodes make use of the information around themselves i.e. from their neighboring nodes.
+We discussed three propagation rules and limitation associated with some of them. 
+Also, the features learned from GCN layers could further be used for semi-supervised learning such as semi-supervised node classification.</p>
+<h3>Sources:</h3>
+<ol>
+<li><a href="https://arxiv.org/abs/1609.02907">https://arxiv.org/abs/1609.02907</a></li>
+<li><a href="http://tkipf.github.io/graph-convolutional-networks/">http://tkipf.github.io/graph-convolutional-networks/</a></li>
+<li><a href="https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780">https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780</a></li>
+<li><a href="https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-62acf5b143d0">https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-62acf5b143d0</a></li>
+<li><a href="https://medium.com/octavian-ai/how-to-get-started-with-machine-learning-on-graphs-7f0795c83763">https://medium.com/octavian-ai/how-to-get-started-with-machine-learning-on-graphs-7f0795c83763</a> </li>
+</ol>
+
+</div>
+
+<div class='footer'></div>
+</body>
+</html> 
