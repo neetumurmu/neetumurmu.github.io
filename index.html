@@ -1,53 +1,224 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-	div.main-container{
-	margin-top: 70px;
-	margin-bottom: 10px;
-	background-color: white;
-}
-	h3, p, h5 {
-		margin-left: 25%;
-	}
-	p{
-		font-style: "Georgia"
-	}
-	#container {
-    width: 150px;
-    background-color: white;
-    margin: auto;
-    margin-top: -30px;
-}
-#first {
-	width: 70px;
-    float: left;
-    height: 10px;
-        background-color: white;
-}
-#second {
-    width: 70px;
-    float: left;
-    height: 10px;
-    background-color: white;
-}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Neetu Murmu</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/icon.jpg" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        body {
+            color: #f3faf3;
+            background: #1d1d20;
+            font-family: Verdana, sans-serif;
+        }
+        .topcorner{
+            position:absolute;
+            top:10px;
+            right:10px;
+        }
+        .about-me{
+            float:right;
+            margin-top: -15px;
+            margin-right: 35px;
+        }
+        .intro{
+            margin-left: 70px;
+            font-size: 0.9rem;
+            /* color:#066d06; */
+        }
 
-	</style>
+        .vl {
+            border-left: 2px solid rgb(250, 255, 250);
+            height: 105px;
+            position: absolute;
+            /* left: 10%; */
+            margin-left: 45px;
+            top: 250px;
+        }
+
+        .v2 {
+            border-left: 2px solid #f3faf3;
+            height: 670px;
+            position: absolute;
+            /* left: 10%; */
+            margin-left: 45px;
+            top: 1280px;
+        }
+
+        .v3 {
+            border-left: 2px solid #f3faf3;
+            height: 260px;
+            position: absolute;
+            /* left: 10%; */
+            margin-left: 45px;
+            top: 1280px;
+        }
+
+        .socials{
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a:active {
+            text-decoration: none;
+        }
+
+
+
+    </style>
 </head>
 <body>
-<div class='main-container'>
-<h2 style="text-align:center;">Neetu Murmu</h2>
-<div id="container">
-    <div id="first"><h4 style="text-align:center;"><a href="https://github.com/neetumurmu">Github</a></h4></div>
-    <div id="second"><h4 style="text-align:center;"><a href="https://www.linkedin.com/in/neetumurmu/">LinkedIn</a></h4></div>
-</div>
+    <header class="masthead">
+        <div class="container">
+            <div>
+                <div class="about-me">
+                    <img class="mx-auto rounded-circle" src="assets/img/profile.jpg" alt="..." />
+                </div>
+                <div class="masthead-heading">Hey there!</div>
+                <div class="vl"></div>
+                <div class="intro">I'm Neetu Murmu. I am a Software Engineer working in ML space.
+                    <br>My interest lies in creating things that make our life easier.
+                    <br>Currently working at CrimeCheck where I am primarily focused on  
+                    <br>developing algorithms to extract information from court documents.
+                </div>
 
- <br><br><br>
-<p style="margin-top:40px;"> Hey there,  I'm Neetu. This website lists some of the blogs and projects I've worked on.</p>
-<h3>Blogs:</h3>
-<p>I wrote the following blogs during my internship at <a href="https://bayeslabs.co/">Bayes Labs</a> during December '19. Hope you like it! </p>
-<h5><a href="https://neetumurmu.github.io/graph-convolutional-networks.html">GCN : Graph Convolutional Network</a></h5>
-<h5><a href="https://neetumurmu.github.io/network-of-gcn.html">N-GCN : Network of GCNs</a></h5>
-</div>
+                <div class='socials'>
+                    <a class="btn btn-dark btn-social mx-4" href="https://github.com/neetumurmu" aria-label="Neetu Murmu Github Profile"><i class="fab fa-github"></i></a>
+                    <a class="btn btn-dark btn-social mx-4" href="https://linkedin.com/neetumurmu" aria-label="Neetu Murmu LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-4" href="mailto:neetumurmu1906@gmail.com" aria-label="Neetu Murmu Email"><i class="fas fa-envelope"></i></a>
+                </div>
+
+                <div style="margin-left: 80px; margin-top: 20px;"><a href="#about" style="color:#12d312;">About Me &#x2192;</a></div>
+                <div style="margin-left: 80px; margin-top: 20px;"><a href="#work" style="color:#12d312;">Work Experience & Projects &#x2192;</a></div>
+            </div>
+           
+        </div>
+    </header>
+
+    <section class="page-section" id="about">
+        <div class="about-me-section">About Me</div>
+        <div class="col-lg-5">
+            <hr style="height:2px;text-align:left;margin-left:120px;color:#f3faf3;">
+        </div>
+        <div class="col-lg-6 about-me-description">
+            <p>Hi there, I'm Neetu Murmu. I studied Computer Science
+            from Indian Institute of Technology (IIT), Kharagpur. I've been working as a Software Developer
+            for 2+ years. 
+            <br><br>
+            I am always fascinated when I come across something new, be it technology, finance or any other field
+            and love exploring & learning about them. 
+            <br>I want to work on things that can help people and make their life easier in some way.
+            <br><br>
+            I have mainly worked with Python and Flask so far, but I'm always open to learn new langauages and frameworks.
+
+            </p>
+        </div>
+    </section>
+
+    <section class="page-section" id="work">
+        <div class="grid-container-projects">
+            <div class="container grid-child">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="text-section">Work Experience</div>
+                        <div class="v2"></div>
+                        <div class="text-heading"><a href="https://crimecheck.ai/">CrimeCheck</a><p style="color:#f2e8c2; font-size: 12px; margin-top: -10px;">2021-present</p></div>
+                        <div class="text-description">
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Working on extraction of litigant details from court orders and judgement.
+                                        Extracted 7 million litigants so far.</div>
+                            </div>
+                            <br>
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Made extraction pipeline robust and efficient to increase pdf2text rate and extraction.</div>
+                            </div>
+                            <br>
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Led correlation analysis to determine the efficacy of our casesearch service which gave us new insights of our app.</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="text-heading"><a href="https://remedicohealth.com/">Remedico Health</a><p style="color:#f2e8c2; font-size: 12px; margin-top: -10px;">2020-2021</p></div>
+                        <!-- <div class="v3"></div> -->
+                        <div class="text-description">
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Solved skewed patient allocation by designing a fair distribution algorithm based on
+                                    doctors’ performance. Took complete responsibility of end-to-end testing.
+                                    </div>
+                            </div>
+                            <br>
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Increased accuracy of scoring system by integrating multiple factors;  refactored existing code
+                                    for extensibility.
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="text-heading"><a href="">Bayes Labs</a><p style="color:#f2e8c2; font-size: 12px; margin-top: -10px;">2019</p></div>
+                        <!-- <div class="v3"></div> -->
+                        <div class="text-description">
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Implemented publication on N-GCN to predict drugs’ toxicity, achieved 0.91 R2-score. Wrote blog on same.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container grid-child">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="text-section">Projects</div>
+                        <div class="v3"></div>
+                        <div class="text-heading"><a href="">ML Deployment using CI/CD pipeline</a></div>
+                        <div class="text-description">
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child">Deployed a bank churn prediction app on cloud with a CI/CD pipeline using services: AWS, PyPI, Github, CircleCI.</div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="text-heading"><a href="">ML deployment within AWS ecosystem</a></div>
+                        <div class="text-description">
+                            <div class="grid-container">
+                                <div class="grid-child">&#x27A4;</div>
+                                <div class="grid-child"> Deployed an ML model within AWS ecosystem using SageMaker, API Gateway, Lambda, S3.
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
 </body>
 </html>
